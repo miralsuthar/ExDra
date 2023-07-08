@@ -1,24 +1,16 @@
 import { useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 import { Workspace } from "./components/Workspace";
-
-type ExcaliState = {
-  id: string;
-  name: string;
-  session: string | null;
-};
+import { useChromeStorage } from "./hooks/useChromeStorage";
 
 const App = () => {
   //States
   const [name, setName] = useState<string>("");
-  const [localExcaliState, setLocalExcaliState] = useState<
-    ExcaliState[] | null
-  >(null);
-  // Local storage array of excalistates
   const [currentExcaliState, setCurrentExcaliState] = useState<string | null>(
     null
   );
-  // const [existingState, setExistingState] = useState<any[] | null>(null);
+
+  //Function
 
   //Function to return the current excalistate of website
   const getCurrentExcaliState = () => {
@@ -37,14 +29,7 @@ const App = () => {
     });
   };
 
-  // Function to get chrome local storage data of excaliState
-  const getLocalStorage = () => {
-    chrome.storage.local
-      .get(["excaliState"])
-      .then((res) => setLocalExcaliState(res["excaliState"]));
-  };
-
-  //Function to save excaliState to cherome local storage
+  //Function to save excaliState to chrome local storage
   const saveExcaliState = () => {
     if (name !== "") {
       const existingState = localExcaliState;
@@ -54,6 +39,7 @@ const App = () => {
         session: currentExcaliState,
       });
       chrome.storage.local.set({ excaliState: existingState });
+      window.location.reload();
     }
   };
 
@@ -94,6 +80,16 @@ const App = () => {
     });
   };
 
+  const deleteExcaliState = (id: string) => {
+    const existingState = localExcaliState;
+    const newState = existingState?.filter((state) => state.id !== id);
+    chrome.storage.local.set({ excaliState: newState });
+    window.location.reload();
+  };
+
+  // hooks
+  const { value: localExcaliState } = useChromeStorage("excaliState");
+
   useEffect(() => {
     if (localExcaliState === undefined) {
       chrome.storage.local.set({ excaliState: [] });
@@ -102,7 +98,6 @@ const App = () => {
 
   useEffect(() => {
     getCurrentExcaliState();
-    getLocalStorage();
   }, []);
 
   return (
@@ -119,7 +114,8 @@ const App = () => {
           className="border grow text-2xl border-black px-2 py-2 placeholder:text-[#ACACAC] placeholder:text-2xl bg-[#EEEEEE] rounded-md"
         />
         <button
-          className="text-[2.65rem] leading-[107%] transition-shadow duration-200 w-full border border-black rounded-md hover:shadow-[2px_2px_0px_rgb(0,0,0)]"
+          disabled={name === ""}
+          className="text-[2.65rem] leading-[107%] transition-shadow duration-200 w-full border border-black rounded-md hover:shadow-[2px_2px_0px_rgb(0,0,0)] disabled:opacity-40 disabled:cursor-not-allowed"
           onClick={saveExcaliState}
         >
           Save
@@ -132,7 +128,7 @@ const App = () => {
                 replaceExistingExcaliState(state.session as string)
               }
               onDelete={() => {
-                console.log("delete");
+                deleteExcaliState(state.id);
               }}
             />
           ))}
