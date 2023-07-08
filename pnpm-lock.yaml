@@ -1,4 +1,4 @@
-lockfileVersion: '6.1'
+lockfileVersion: '6.0'
 
 settings:
   autoInstallPeers: true
@@ -14,12 +14,12 @@ dependencies:
   '@supabase/supabase-js':
     specifier: ^2.26.0
     version: 2.26.0
+  '@tabler/icons-react':
+    specifier: ^2.24.0
+    version: 2.24.0(react@18.2.0)
   '@trpc/client':
     specifier: ^10.33.1
     version: 10.33.1(@trpc/server@10.33.1)
-  '@trpc/react':
-    specifier: ^9.27.4
-    version: 9.27.4(@trpc/client@10.33.1)(@trpc/server@10.33.1)(react-dom@18.2.0)(react-query@3.39.3)(react@18.2.0)
   '@trpc/server':
     specifier: ^10.33.1
     version: 10.33.1
@@ -941,30 +941,26 @@ packages:
       - supports-color
     dev: false
 
+  /@tabler/icons-react@2.24.0(react@18.2.0):
+    resolution: {integrity: sha512-0pNc+ffp4HZCsozv9aN/hSDiC/RTGozTmf0MCL4U9NIo8yMQh8q3zEfXRNr18IM2InyIBJL95/1J2kzgU2lYeA==}
+    peerDependencies:
+      react: ^16.5.1 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@tabler/icons': 2.24.0
+      prop-types: 15.8.1
+      react: 18.2.0
+    dev: false
+
+  /@tabler/icons@2.24.0:
+    resolution: {integrity: sha512-Otv6zrVF3HU54G6FK7OPODcQmKR9KgM6Ppi+ib3gHHB1LZEs2HIdQJYTHP5dGE+yOQWtXS9ZnGmSZDkSFLbkkg==}
+    dev: false
+
   /@trpc/client@10.33.1(@trpc/server@10.33.1):
     resolution: {integrity: sha512-j1YKBl/VtjCK3nUQFacsouGpsk/DFVNiekp4sZf8Lryb6f1OIChlLJZNEipl+DUuHxsPVuaCQis4PGkrIb2ieg==}
     peerDependencies:
       '@trpc/server': 10.33.1
     dependencies:
       '@trpc/server': 10.33.1
-    dev: false
-
-  /@trpc/react@9.27.4(@trpc/client@10.33.1)(@trpc/server@10.33.1)(react-dom@18.2.0)(react-query@3.39.3)(react@18.2.0):
-    resolution: {integrity: sha512-bP74Tf6vWcMoWYiTAvbWrieV9cFQiKUDKRoRj0+VeGJbxdbhdJyUzv4zos0T4SiSKuhgoEm9bP4jWU2NhNhpIA==}
-    deprecated: 'Migrate to v10: https://trpc.io/docs/migrate-from-v9-to-v10. Also, this package has changed name to `@trpc/react-query`.'
-    peerDependencies:
-      '@trpc/client': 9.27.4
-      '@trpc/server': 9.27.4
-      react: '>=16.8.0'
-      react-dom: '>=16.8.0'
-      react-query: ^3.37.0
-    dependencies:
-      '@babel/runtime': 7.22.5
-      '@trpc/client': 10.33.1(@trpc/server@10.33.1)
-      '@trpc/server': 10.33.1
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-      react-query: 3.39.3(react-dom@18.2.0)(react@18.2.0)
     dev: false
 
   /@trpc/server@10.33.1:
@@ -2393,7 +2389,6 @@ packages:
   /object-assign@4.1.1:
     resolution: {integrity: sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==}
     engines: {node: '>=0.10.0'}
-    dev: true
 
   /object-hash@3.0.0:
     resolution: {integrity: sha512-RSn9F68PjH9HqtltsSnqYC1XXoWe9Bju5+213R98cNGttag9q9yAOTzdbsqvIa7aNm5WffBZFpWYr2aWrklWAw==}
@@ -2581,6 +2576,14 @@ packages:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
     dev: true
+
+  /prop-types@15.8.1:
+    resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+      react-is: 16.13.1
+    dev: false
 
   /punycode@2.3.0:
     resolution: {integrity: sha512-rRV+zQD8tVFys26lAGR9WUuS4iUAngJScM+ZRSKtvl5tKeZ2t5bvdNFdNHBW9FWR4guGHlgmsZ1G7BSm2wTbuA==}
