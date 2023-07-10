@@ -29,6 +29,10 @@ const App = () => {
     });
   };
 
+  const reloadExtension = () => {
+    window.location.reload();
+  };
+
   //Function to save excaliState to chrome local storage
   const saveExcaliState = () => {
     if (name !== "") {
@@ -39,15 +43,16 @@ const App = () => {
         session: currentExcaliState,
       });
       chrome.storage.local.set({ excaliState: existingState });
-      window.location.reload();
+      reloadExtension();
     }
   };
 
   const modifyCurrentExcaliState = (value: string) => {
     window.localStorage.setItem("excalidraw", value);
-    window.location.reload();
+    reloadExtension();
   };
 
+  // Replace the current excalistate with the saved one
   const replaceExistingExcaliState = (state: string) => {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       if (tabs[0].id && tabs[0].url?.includes("https://excalidraw.com/")) {
@@ -63,6 +68,7 @@ const App = () => {
     });
   };
 
+  //Empty the current excalistate
   const createNew = () => {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       if (tabs[0].id && tabs[0].url?.includes("https://excalidraw.com/")) {
@@ -71,7 +77,7 @@ const App = () => {
             target: { tabId: tabs[0].id },
             func: () => {
               window.localStorage.setItem("excalidraw", "[]");
-              window.location.reload();
+              reloadExtension();
             },
           })
           .then((res) => console.log(res))
@@ -80,6 +86,7 @@ const App = () => {
     });
   };
 
+  // Delete the saved session on extension
   const deleteExcaliState = (id: string) => {
     const existingState = localExcaliState;
     const newState = existingState?.filter((state) => state.id !== id);
