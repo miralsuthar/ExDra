@@ -49,7 +49,7 @@ const App = () => {
 
   const modifyCurrentExcaliState = (value: string) => {
     window.localStorage.setItem("excalidraw", value);
-    reloadExtension();
+    window.location.reload();
   };
 
   // Replace the current excalistate with the saved one
@@ -77,7 +77,7 @@ const App = () => {
             target: { tabId: tabs[0].id },
             func: () => {
               window.localStorage.setItem("excalidraw", "[]");
-              reloadExtension();
+              window.location.reload();
             },
           })
           .then((res) => console.log(res))
